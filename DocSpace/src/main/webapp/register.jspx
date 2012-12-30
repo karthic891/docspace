@@ -1,0 +1,121 @@
+<jsp:root xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:ice="http://www.icesoft.com/icefaces/component">
+		
+		<link href="c/header.css" media="screen" rel="stylesheet" type="text/css" />
+		
+		<script type="text/javascript">
+			/* JavaScript comes here */
+        </script>
+		<ice:panelGroup>
+			<ice:portlet style="margin-top: 30px;">
+				<ice:outputText styleClass="signUpHeader" value="Sign Up"></ice:outputText>
+					<hr />
+					<table class="registerPanel">
+						<tr>
+							<td class="rightAlign">
+								<ice:outputLabel styleClass="outputLabelStyle" value="User name:"></ice:outputLabel>
+							</td>
+							<td>
+								<ice:inputText styleClass="inputTextStyle" value="#{RegisterBean.userName}" />
+							</td>
+							<td />
+						</tr>
+						<tr>
+							<td class="rightAlign">
+								<ice:outputLabel styleClass="outputLabelStyle" value="First Name:"></ice:outputLabel>
+							</td>
+							<td>
+								<ice:inputText styleClass="inputTextStyle" value="#{RegisterBean.firstName}" />
+							</td>
+							<td />
+						</tr>
+						<tr>
+							<td class="rightAlign">
+								<ice:outputLabel styleClass="outputLabelStyle" value="Last Name:"></ice:outputLabel>
+							</td>
+							<td>
+								<ice:inputText styleClass="inputTextStyle" value="#{RegisterBean.lastName}" />
+							</td>
+							<td />
+						</tr>
+						<tr>
+							<td class="rightAlign">
+								<ice:outputLabel styleClass="outputLabelStyle" value="Email Id:"></ice:outputLabel>
+							</td>
+							<td>
+								<ice:inputText styleClass="inputTextStyle" value="#{RegisterBean.emailId}" />
+							</td>
+							<td />
+						</tr>
+						<tr>
+							<td class="rightAlign">
+								<ice:outputLabel styleClass="outputLabelStyle" value="Password:"></ice:outputLabel>
+							</td>
+							<td>
+								<ice:inputSecret styleClass="inputTextStyle" value="#{RegisterBean.password}" />
+							</td>
+							<td />
+						</tr>
+						<tr>
+							<td class="rightAlign">
+								<ice:outputLabel styleClass="outputLabelStyle" value="Confirm Password:"></ice:outputLabel>
+							</td>
+							<td>
+								<ice:inputSecret styleClass="inputTextStyle" value="#{RegisterBean.repeatPwd}" />
+							</td>
+							<td />
+						</tr>
+						<tr>
+							<td class="rightAlign">
+								<ice:outputLabel styleClass="outputLabelStyle" value="Gender:"></ice:outputLabel>
+							</td>
+							<td>
+								<ice:selectOneMenu styleClass="genderStyle" value="#{RegisterBean.gender}">
+								<f:selectItems value="#{RegisterBean.genderItems}" />
+							</ice:selectOneMenu>
+							</td>
+							<td />
+						</tr>
+					<!-- <tr>
+							<td class="rightAlign">
+								<ice:outputLabel styleClass="outputLabelStyle" value="Birthday:"></ice:outputLabel>
+							</td>
+							<td>
+								<ice:selectOneMenu styleClass="dobStyle" value="#{RegisterBean.month}">
+									<f:selectItems value="#{RegisterBean.months}"/>
+								</ice:selectOneMenu>
+								<ice:selectOneMenu styleClass="dobStyle" value="#{RegisterBean.day}">
+									<f:selectItems value="#{RegisterBean.days}"/>
+								</ice:selectOneMenu>
+								<ice:selectOneMenu styleClass="dobStyle" value="#{RegisterBean.year}">
+									<f:selectItems value="#{RegisterBean.years}"/>
+								</ice:selectOneMenu>
+							</td>
+							<td />
+						</tr> -->
+						<tr>
+							<td />
+							<td>
+								<ice:commandLink value="Sign Up" action="#{RegisterBean.registerUser}" />
+							</td>
+							<td />
+						</tr>
+						<tr>
+							<td colspan="3">
+								<!-- <ice:dataTable columns="1" value="#{RegisterBean.errors}" var="error">
+									<ice:column>
+										<ice:outputText value="#{error}" effect="#{RegisterBean.effect}"></ice:outputText>
+									</ice:column>
+								</ice:dataTable> -->
+								<ice:panelGroup rendered="#{RegisterBean.errorMessage ne null}" style="height: 30px; background-color: red;">
+									<center>
+										<ice:outputText value="#{RegisterBean.errorMessage}"></ice:outputText>
+									</center>
+								</ice:panelGroup>
+							</td>
+						</tr>
+					</table>
+				</ice:portlet>
+		</ice:panelGroup>
+</jsp:root>

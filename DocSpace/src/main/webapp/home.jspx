@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+	<jsp:directive.page contentType="text/html;charset=ISO-8859-1"
+		pageEncoding="ISO-8859-1" />
+
+	<f:view>
+		<ice:outputDeclaration doctypeRoot="html"
+			doctypePublic="-//W3C//DTD HTML 4.01 Transitional//EN"
+			doctypeSystem="http://www.w3.org/TR/html4/loose.dtd" />
+		<html>
+		<head>
+		<title>docSpace</title>
+		<meta http-equiv="pragma" content="no-cache" />
+		<meta http-equiv="cache-control" content="no-cache" />
+		<meta http-equiv="expires" content="0" />
+ 		<ice:outputStyle href="css/header.css" />
+ 		<ice:outputStyle href="css/mainBody.css" />
+ 		<script language="javascript" src="js/main.js"></script> 
+		</head>
+		<body>
+		<ice:form id="mainForm">
+			<jsp:directive.include file="header.jspx"/>
+			<ice:outputText value="HOME"></ice:outputText>
+			<ice:outputText value="welcome #{HomeBean.currentUser.firstName}!"></ice:outputText>
+			<ice:commandLink value="Logout" action="#{LoginBean.logOut}"></ice:commandLink>
+			<ice:panelGroup styleClass="leftNavigationPanel">
+				<ice:panelGroup styleClass="movedNavigation">
+					<ice:panelGrid columns="1" style="padding-top: 10px;">
+						<ice:column>
+							<ice:outputText value="#{HomeBean.currentUser.firstName} #{HomeBean.currentUser.lastName}" styleClass="profileNameStyle"></ice:outputText>
+						</ice:column>
+						<ice:column>
+							<ice:commandLink value="Log Out" action="#{LoginBean.logOut}"></ice:commandLink>
+						</ice:column>
+					</ice:panelGrid>
+					<ice:panelGrid border="0" columns="1" columnClasses="navCol, none" style="padding-top: 20px;">
+						<ice:column>
+							<ice:panelGrid columns="2" columnClasses="docHandleCol1, docHandleCol2">
+								<ice:column>
+									<ice:commandLink styleClass="addFolder" action="#{DocumentHandlerBean.launchCreateUploadPopup}" title="Add Folder">
+										<f:param name="popupType" value="createFolder"></f:param>
+									</ice:commandLink>
+								</ice:column>
+								<ice:column>
+									<ice:commandLink styleClass="uploadFile" action="#{DocumentHandlerBean.launchCreateUploadPopup}" title="Upload File">
+										<f:param name="popupType" value="uploadFile"></f:param>
+									</ice:commandLink>
+								</ice:column>
+							</ice:panelGrid>
+						</ice:column>
+						<ice:column>
+							<ice:portlet>
+								<ice:commandLink value="Home" action="#{DocumentHandlerBean.loadHomeFolders}"></ice:commandLink>
+							</ice:portlet>
+							<ice:dataTable columns="1" value="#{DocumentHandlerBean.homeDocuments}" var="folder">
+								<ice:column>
+									<ice:commandLink value="#{folder.name}" action="#{DocumentHandlerBean.handleDocument}">
+										<f:param name="documentId" value="#{folder.id}"></f:param>
+									</ice:commandLink>
+								</ice:column>
+							</ice:dataTable>
+						</ice:column>
+					</ice:panelGrid>
+				</ice:panelGroup>
+			</ice:panelGroup>
+			<!-- Main Content -->
+			<ice:panelGroup styleClass="homeBody">
+				<ice:panelGrid border="0" styleClass="topNavigationPane" columns="4" columnClasses="navColumn, navColumn, navColumn, sortColumn">
+					<ice:column>
+						<ice:commandLink styleClass="lockButton" rendered="#{DocumentHandlerBean.selectedCount gt 0}" action="#{DocumentHandlerBean.lockDocuments}" title="Lock" />
+					</ice:column>
+					<ice:column>
+						<ice:commandLink styleClass="unlockButton" rendered="#{DocumentHandlerBean.selectedCount gt 0}" action="#{DocumentHandlerBean.unlockDocuments}" title="Unlock" />
+					</ice:column>
+					<ice:column>
+						<ice:commandLink styleClass="deleteButton" rendered="#{DocumentHandlerBean.selectedCount gt 0}" action="#{DocumentHandlerBean.delete}" title="Delete" />
+					</ice:column>
+					<ice:column>
+						<ice:panelGrid style="padding-top: 5px;" columns="3" columnClasses="sortLabel, sortCol, sortCol">
+							<ice:column>
+								<ice:outputText value="Sort By: " style="font-weight: bold;"></ice:outputText>
+							</ice:column>
+							<ice:column>
+								<ice:commandLink value="Name" action="#{DocumentHandlerBean.sort}" rendered="true" title="Sort by Name">
+									<f:param name="sortBy" value="name"></f:param>
+								</ice:commandLink>
+							</ice:column>
+							<ice:column>
+								<ice:commandLink value="Date" action="#{DocumentHandlerBean.sort}" rendered="true" title="Sort by Date">
+									<f:param name="sortBy" value="date"></f:param>
+								</ice:commandLink>
+						</ice:column>
+						</ice:panelGrid>
+					</ice:column>
+				</ice:panelGrid>
+				<hr />
+				<!-- <ice:panelGroup id="albumPage" rendered="#{HomepageNavigationBean.currentLocation.locationName eq 'Albums'}">
+					<jsp:directive.include file="album.jspx" />
+				</ice:panelGroup>
+				<ice:panelGroup id="streamPage" rendered="#{HomepageNavigationBean.currentLocation.locationName eq 'Stream'}">
+					<jsp:directive.include file="stream.jspx" />
+				</ice:panelGroup> -->
+				<ice:dataTable columns="5" headerClass="docPanelHeader" rowClasses="docRowClass1, docRowClass2" styleClass="documentPanel" value="#{DocumentHandlerBean.files}" var="file">
+					<ice:column styleClass="checkBox">
+						<ice:selectBooleanCheckbox rendered="#{file.owner.userName eq LoginBean.userName}" value="#{file.selected}" partialSubmit="true" valueChangeListener="#{DocumentHandlerBean.documentSelectionListener}"></ice:selectBooleanCheckbox>
+					</ice:column>
+					<ice:column>
+						<f:facet name="header">
+							<ice:outputText value="TITLE"></ice:outputText>
+						</f:facet>
+						<ice:graphicImage rendered="#{file.file}" url="images/file1.jpg" />
+						<ice:graphicImage rendered="#{! file.file}" url="images/folder1.jpg" />
+						&#160;&#160;
+						<ice:commandLink rendered="#{!file.file and !file.locked}" type="#{file.type}" value="#{file.name}" immediate="true" action="#{DocumentHandlerBean.handleDocument}">
+							<f:param name="documentId" value="#{file.id}"></f:param>
+						</ice:commandLink>
+						<ice:outputText rendered="#{! file.file and file.locked}" type="#{file.type}" value="#{file.name} - LOCKED" immediate="true" action="#{DocumentHandlerBean.handleDocument}" />
+						
+						<ice:outputLink rendered="#{file.file and !file.locked}" target="_blank" value="download/DownloadServlet?documentId=#{file.id}">
+							<ice:outputText value="#{file.name}" />
+						</ice:outputLink>
+						<ice:outputText rendered="#{file.file and file.locked}" type="#{file.type}" value="#{file.name} - LOCKED" immediate="true" action="#{DocumentHandlerBean.handleDocument}" />
+					</ice:column>
+					<ice:column>
+						<f:facet name="header">
+							<ice:outputText value="OWNER"></ice:outputText>
+						</f:facet>
+						<ice:outputText value="#{file.owner.firstName}"></ice:outputText>
+					</ice:column>
+					<ice:column>
+						<f:facet name="header">
+							<ice:outputText value="CREATION DATE"></ice:outputText>
+						</f:facet>
+						<ice:outputText value="#{file.creationDate}"></ice:outputText>
+					</ice:column>
+					<ice:column>
+						<f:facet name="header">
+							<ice:outputText value="FILE TYPE"></ice:outputText>
+						</f:facet>
+						<ice:outputText rendered="#{file.type ne null}" value="#{file.type}"></ice:outputText>
+						<ice:outputText rendered="#{file.type eq null}" value="Folder"></ice:outputText>
+					</ice:column>
+				</ice:dataTable>
+			</ice:panelGroup>
+			<jsp:directive.include file="./addFolder.jspx" />
+			<jsp:directive.include file="./uploadFile.jspx" />
+			
+		</ice:form>
+		</body>
+		</html>
+	</f:view>
+</jsp:root>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+	<jsp:directive.page contentType="text/html;charset=ISO-8859-1"
+		pageEncoding="ISO-8859-1" />
+
+	<f:view>
+		<ice:outputDeclaration doctypeRoot="html"
+			doctypePublic="-//W3C//DTD HTML 4.01 Transitional//EN"
+			doctypeSystem="http://www.w3.org/TR/html4/loose.dtd" />
+		<html>
+		<head>
+		<title>docSpace</title>
+		<meta http-equiv="pragma" content="no-cache" />
+		<meta http-equiv="cache-control" content="no-cache" />
+		<meta http-equiv="expires" content="0" />
+ 		<ice:outputStyle href="css/header.css" />
+ 		<ice:outputStyle href="css/mainBody.css" />
+ 		<script language="javascript" src="js/main.js"></script> 
+		</head>
+		<body>
+		<ice:form id="mainForm">
+			<jsp:directive.include file="./mainHeader.jspx"/>
+			<div class="mainBody">
+				<ice:panelGrid columns="2" columnClasses="left, right">
+					<ice:column>
+					</ice:column>
+					<ice:column>
+						<ice:panelGroup rendered="#{LoginBean.errorMessage ne null}" style="height: 25px; background-color: red;">
+							<center>
+								<ice:outputText value="#{LoginBean.errorMessage}"></ice:outputText>
+							</center>
+						</ice:panelGroup>
+						<jsp:directive.include file="./register.jspx" />
+					</ice:column>
+				</ice:panelGrid>
+			</div>
+			<div class="footer">
+				<!-- <ice:commandLink value="Register!" action="#{LoginBean.register}" />
+				<ice:outputConnectionStatus cautionLabel="Caution: Connection in danger." activeLabel="Active: Working."
+     				disconnectedLabel="Disconnected." inactiveLabel="Active: Idle." /> -->
+			</div>
+		</ice:form>
+		</body>
+		</html>
+	</f:view>
+</jsp:root>

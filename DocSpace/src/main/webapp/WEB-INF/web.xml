@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+  <display-name>Archetype Created Web Application</display-name>
+  <context-param>
+  	<param-name>javax.faces.CONFIG_FILES</param-name>
+  	<param-value>/WEB-INF/faces-config/docspace-faces-config.xml</param-value>
+  </context-param>
+  <servlet>
+		<servlet-name>DownloadServlet</servlet-name>
+		<servlet-class>com.docspace.home.DownloadServlet</servlet-class>
+	</servlet>
+  <servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>Persistent Faces Servlet</servlet-name>
+		<servlet-class>com.icesoft.faces.webapp.xmlhttp.PersistentFacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>Blocking Servlet</servlet-name>
+		<servlet-class>com.icesoft.faces.webapp.xmlhttp.BlockingServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+         <servlet-name>uploadServlet</servlet-name>
+         <servlet-class>com.icesoft.faces.component.inputfile.FileUploadServlet</servlet-class>
+         <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+         <servlet-name>uploadServlet</servlet-name>
+         <url-pattern>/uploadHtml</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+         <servlet-name>DownloadServlet</servlet-name>
+         <url-pattern>/download/*</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
+    	<servlet-name>Faces Servlet</servlet-name>
+    	<url-pattern>/faces/*</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+    	<servlet-name>Faces Servlet</servlet-name>
+    	<url-pattern>*.faces</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsp</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Blocking Servlet</servlet-name>
+		<url-pattern>/block/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Persistent Faces Servlet</servlet-name>
+		<url-pattern>/xmlhttp/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Persistent Faces Servlet</servlet-name>
+		<url-pattern>*.iface</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+         <servlet-name>Persistent Faces Servlet</servlet-name>
+         <url-pattern>*.jspx</url-pattern>
+    </servlet-mapping>
+	
+    
+    <!-- Context Params -->
+    
+    <context-param>
+		<param-name>com.icesoft.faces.concurrentDOMViews</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<description>IceFaces Only: Compression feature for IceFaces</description>
+		<param-name>com.icesoft.faces.compressDOM</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.iface</param-value>
+	</context-param>
+	<context-param>
+		<description>State saving method: "client" or "server" (= default) See JSF Specification 2.5.2</description>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>server</param-value>
+	</context-param>
+	<context-param>
+		<param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+  		<param-name>com.ibm.ws.jsf.JSP_UPDATE_CHECK</param-name>
+  		<param-value>true</param-value>
+ 	</context-param>
+ 	<context-param>
+            <param-name>com.icesoft.faces.uploadDirectory</param-name>
+            <param-value>images</param-value>
+    </context-param>
+	
+	<!--  Welcome Files -->
+	<welcome-file-list>
+		<welcome-file>index.jspx</welcome-file>
+	</welcome-file-list>
+  
+</web-app>

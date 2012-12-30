@@ -1,0 +1,47 @@
+
+create database docspace;
+use docspace;
+
+create table USERINFO (
+				USER_ID INT NOT NULL AUTO_INCREMENT,
+				USERNAME VARCHAR(30) NOT NULL,
+				PASSWORD VARCHAR(30) NOT NULL,
+				FIRSTNAME VARCHAR(30) NOT NULL, 
+				LASTNAME VARCHAR(30) NOT NULL,
+				DATE_OF_BIRTH DATE,
+				GENDER VARCHAR(2),
+				EMAIL_ID VARCHAR(30),
+				PRIMARY KEY (USER_ID)
+				)
+				
+insert into USERINFO(USERNAME, PASSWORD, FIRSTNAME, LASTNAME, DATE_OF_BIRTH, GENDER, EMAIL_ID) VALUES(
+																							'test',
+																							'test',
+																							'karthic'
+																							'viswanathan',
+																							CURDATE(),
+																							'M'
+																							'karthic891@gmail.com'
+																							)											
+
+create table DOCUMENT_INFO ( DOCUMENT_ID INT NOT NULL AUTO_INCREMENT,
+							FILE_NAME VARCHAR(50) NOT NULL,
+							OWNER_ID INT NOT NULL,
+							CREATION_DATE DATE DEFAULT now(),
+							LAST_ACCESSED_DATE DATE,
+							FILE_TYPE VARCHAR(10),
+							PARENT_ID INT NOT NULL,
+							LOCK_STATUS INT NOT NULL,
+							FILE_CONTENT LONGBLOB, PRIMARY KEY (DOCUMENT_ID) );
+							
+																																	
+																							
+create table sampleblob (
+						ID INT,
+						FILE LONGBLOB
+						size int);
+						
+
+CREATE USER sqluser IDENTIFIED BY 'sqluserpw'; 
+grant usage on *.* to sqluser@localhost identified by 'sqluserpw'; 
+grant all privileges on feedback.* to sqluser@localhost;

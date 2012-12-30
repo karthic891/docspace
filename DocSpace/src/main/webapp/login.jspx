@@ -1,0 +1,56 @@
+<jsp:root xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:ice="http://www.icesoft.com/icefaces/component">
+		
+		<link href="c/header.css" media="screen" rel="stylesheet" type="text/css" />
+		
+		<script type="text/javascript">
+			/* JavaScript comes here */
+        </script>
+        	<!-- Just to initialize the LoginBea for the first time -->
+        	<ice:inputHidden value="#{LoginBean.userName}"></ice:inputHidden>
+			<ice:panelGroup styleClass="login" rendered="#{HeaderBean.enableLoginPanel}">
+				<table class="loginTable">
+					<tr>
+						<td>
+							&#160;<ice:outputText value="Email" />
+						</td>
+						<td>
+							&#160;<ice:outputText value="Password" />
+						</td>
+						<td />
+						<td />
+					</tr>
+					<tr>
+						<td>
+							<ice:inputText id="emailText" value="#{LoginBean.userName}" onkeydown="handleKeyPress(event);" />
+						</td>
+						<td>
+							<ice:inputSecret id="passwordText" value="#{LoginBean.password}" onkeydown="handleKeyPress(event);" />
+						</td>
+						<td>
+							<!-- <ice:commandLink action="#{LoginBean.authenticateUser}" value="Log In" /> -->
+							<ice:commandButton id="loginBtn" action="#{LoginBean.authenticateUser}" value="Log In" />
+						</td>
+						<td>
+							<!-- <ice:panelGroup rendered="true" style="height: 25px; background-color: green;">
+								<center>
+									<ice:outputText value="Invalid Username/Password"></ice:outputText>
+								</center>
+							</ice:panelGroup> -->
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<!-- <ice:selectBooleanCheckbox value="" />
+							<ice:outputText styleClass="loginExtras" value="Keep me logged in" /> -->
+						</td>
+						<td>
+							<!-- &#160;<ice:commandLink styleClass="loginExtras" value="Forgot my password" /> -->
+						</td>
+						<td />
+						<td />
+					</tr>
+				</table>
+			</ice:panelGroup>
+</jsp:root>

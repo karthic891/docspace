@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+	"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<!-- ==================================================================== -->
+	<!-- FACADE LAYER				                                          -->
+	<!-- ==================================================================== -->
+
+	<bean id="memberFacade" class="com.docspace.facade.MemberFacadeImpl">
+		<constructor-arg ref="memberService"/>
+	</bean>
+	<bean id="documentFacade" class="com.docspace.facade.DocumentFacadeImpl">
+		<constructor-arg ref="documentService"/>
+	</bean>
+	
+	<!-- ==================================================================== -->
+	<!-- SERVICE LAYER				                                          -->
+	<!-- ==================================================================== -->
+
+	<bean id="memberService" class="com.docspace.service.MemberService">
+		<constructor-arg ref="memberRepository"/>
+	</bean>
+	<bean id="documentService" class="com.docspace.service.DocumentService">
+		<constructor-arg ref="documentRepository"/>
+	</bean>
+	
+	<!-- ==================================================================== -->
+	<!-- REPOSITORY LAYER				                                          -->
+	<!-- ==================================================================== -->
+
+	<bean id="memberRepository" class="com.docspace.repository.MemberRepository">
+		<constructor-arg ref="dbConnector"/>
+	</bean>
+	<bean id="documentRepository" class="com.docspace.repository.DocumentRepository">
+		<constructor-arg ref="dbConnector"/>
+		<constructor-arg ref="memberRepository"/>
+	</bean>
+	
+	<bean id="dbConnector" class="com.docspace.repository.DBConnector">
+	</bean>
+	
+</beans>

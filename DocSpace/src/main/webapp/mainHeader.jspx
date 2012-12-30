@@ -1,0 +1,14 @@
+<jsp:root xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:ice="http://www.icesoft.com/icefaces/component">
+		
+		<link href="c/header.css" media="screen" rel="stylesheet" type="text/css" />
+		
+		<script type="text/javascript">
+			/* JavaScript comes here */
+        </script>
+		<div class="header">
+			<div class="logo" />
+			<jsp:directive.include file="login.jspx"/>
+		</div>
+</jsp:root>

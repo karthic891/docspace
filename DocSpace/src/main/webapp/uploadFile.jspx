@@ -1,0 +1,39 @@
+<jsp:root xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:ice="http://www.icesoft.com/icefaces/component">
+		
+		<link href="c/header.css" media="screen" rel="stylesheet" type="text/css" />
+		
+		<script type="text/javascript">
+			/* JavaScript comes here */
+        </script>
+		<ice:panelPopup rendered="#{DocumentHandlerBean.createUploadPopup eq 'uploadFile'}" modal="true">
+				<f:facet name="header">
+                    <ice:panelGrid columns="2" columnClasses="addFolderCol1, addFolderCol2" width="100%" style="width: 400px; text-align: left; background-color: #C3CACE; height: 30px;">
+                    	<ice:column>
+                    		<ice:outputText style="color: #000000; font-size: medium;" value="Upload File"/>
+                    	</ice:column>
+                        <ice:column>
+                        	<ice:commandLink action="#{DocumentHandlerBean.closePopup}">
+                        		<ice:graphicImage url="/images/close1.jpg"></ice:graphicImage>
+                        	</ice:commandLink>
+                        </ice:column>
+                    </ice:panelGrid>
+                </f:facet>
+                
+                <f:facet name="body">
+                    <ice:panelGroup width="100%" style="width: 400px; text-align: left; background-color: #ffffff; height: 150px;">
+                    	<br />
+                        <ice:outputText style="font-size: medium;" value="Please enter the file path : "/>
+                        <br /><br />
+                        <ice:inputFile file="#{DocumentHandlerBean.file}" actionListener="#{DocumentHandlerBean.uploadListener}"></ice:inputFile>
+                        <br /><br />
+                        <ice:panelGroup rendered="#{DocumentHandlerBean.errorMessage ne null}" style="height: 25px; background-color: red;">
+							<center>
+								<ice:outputText style="font-weight: bold; color: white;" value="#{DocumentHandlerBean.errorMessage}"></ice:outputText>
+							</center>
+						</ice:panelGroup>
+                    </ice:panelGroup>
+                </f:facet>
+			</ice:panelPopup>
+</jsp:root>
